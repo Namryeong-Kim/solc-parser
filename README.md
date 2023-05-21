@@ -147,7 +147,6 @@ pragma solidity [version];
 
 </aside>
     ```solidity
-        
         pragma solidity >0.4.24;
 
         contract Test {
@@ -157,5 +156,4 @@ pragma solidity [version];
         function foo(uint a) public { emit Event(a, b); }
         bytes32 b;
         }
-
     ```
