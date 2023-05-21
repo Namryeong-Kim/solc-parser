@@ -8,7 +8,7 @@ pragma solidity [version];
 
 ## 사용법
 
-```solidity
+```shell
 ./solc-parser.sh [file_path]
 ```
 
@@ -19,7 +19,7 @@ pragma solidity [version];
   - 사용자가 input으로 넣어준 파일에 대해 버전 파싱
   - range 형태로 입력한 경우(ex. >=0.5.0 <=0.8.9) 해당 범위 내에서 가장 최신 버전을 설치할 수 있도록 max 값 추출함
   - 단독 실행 시 사용 형태
-    ```solidity
+    ```shell
     python3 parse_solc_version.py [file_path] [option] [option_value]
     ```
   - option
@@ -31,7 +31,7 @@ pragma solidity [version];
   - ethereum/solidity의 release 페이지에서 update된 버전 정보를 크롤링하여 가져옴
   - solc_list.txt에 버전만 추출하여 저장함
   - 단독 실행 시 사용 형태
-    ```solidity
+    ```shell
     python3 get_version_list.py
     ```
 
@@ -40,15 +40,15 @@ pragma solidity [version];
   - ^, ~, >= 기호가 있다면 해당 버전의 부버전 중 가장 최신의 패치 버전을 가져옴
   - 예) ^0.8.9 라면, 0.8.20 버전 가져옴. ~0.7이라면 0.7.6
   - 단독 실행 시 사용 형태
-    ```solidity
+    ```shell
     python3 search_highest_version.py [target_version]
     ```
 
 - `search_less_or_greater_case.py` :
 
-  - > , < 기호가 있다면 해당 버전의 부버전 중 가장 가까운 패치 버전을 선택함
-    > [] 마지막 패치 버전(ex. 0.7.6)일때는 부버전에 +1을 해줘야함
-    > [] 나머지 경우에는 해당 부버전 중 가장 최신의 패치 버전을 가져와야 하는데, 이부분은 아직 해결 안됨
+  - \> , < 기호가 있다면 해당 버전의 부버전 중 가장 가까운 패치 버전을 선택함
+    [] 마지막 패치 버전(ex. 0.7.6)일때는 부버전에 +1을 해줘야함
+    [] 나머지 경우에는 해당 부버전 중 가장 최신의 패치 버전을 가져와야 하는데, 이부분은 아직 해결 안됨
 
 - `solc-parser.sh`
   - 버전 리스트 update 및 기호 조건에 따른 python 파일 호출함
@@ -66,17 +66,17 @@ pragma solidity [version];
 - 사용할 수 있는 기호
   - [x] ^ : 최신 마이너 버전
   - [x] ~ : 최신 패치 버전
-  - [ ] - : 모든 버전
-    * pragma solidity \*
-    * pragma solidity \*.0
-    * pragma solidity \*.x
-    * pragma solidity _._
-    * pragma solidity _._.0
-    * pragma solidity _._.x
-    * pragma solidity _._.\*
-    * pragma soldity 0.\*
-    * pragma soldity 0._._
-    * pragma soldity 0.0.\*
+  - [ ] \* : 모든 버전
+    - pragma solidity \*
+    - pragma solidity \*.0
+    - pragma solidity \*.x
+    - pragma solidity \*.\*
+    - pragma solidity \*.\*.0
+    - pragma solidity \*.\*.x
+    - pragma solidity \*.\*.\*
+    - pragma soldity 0.\*
+    - pragma soldity 0.\*.\*
+    - pragma soldity 0.0.\*
   - [x] = : 특정 버전
   - [x] ≥ : 특정 버전 이상
   - [x] ≤ : 특정 버전 이하
@@ -101,7 +101,7 @@ pragma solidity [version];
    - [x] ~
    - [x] ≥
    - [x] range
-   - [ ] -
+   - [ ] \*
 2. 추출한 target_version과 동일한 버전을 고르면 되는 경우
    - [x] =
    - [x] ≤
@@ -121,14 +121,20 @@ pragma solidity [version];
 ## 개선 및 해결해야할 것
 
 <aside>
-💡 1. 예외 발생시 페이지 로딩을 1초 기다렸다가 수행함 → output 출력까지 시간이 좀 걸림
+💡 List
+    1. 예외 발생시 페이지 로딩을 1초 기다렸다가 수행함 → output 출력까지 시간이 좀 걸림
     → selenium 무거워서 request 이용하는 형태로 변경
 
     2. 현재는 실행할 때마다 전체 리스트를 크롤링하는 방식 → 따로 파일에 저장해두고 새로운 버전 릴리즈가 나올때 새로운 버전만 추가하는 방식으로 변경해야할 것 같음
     - 내림차순으로 정렬해서 for문으로 저장된 파일의 처음과 릴리즈 크롤링한 값이 같다면 새로운 버전이 나온 것이 아니므로 break/return하면 되지 않을까?
-    - [x] 내림차순 정렬 완료
-    - [x] 파일에 저장하도록 변경
+    [x] 내림차순 정렬 완료
+    [x] 파일에 저장하도록 변경
 
     3. 와일드카드(*) 경우의 수 처리하기
+
+    4. >, >= 기호 처리
+    [] 마지막 패치 버전(ex. 0.7.6)일때는 부버전에 +1을 해줘야함
+    [] 나머지 경우에는 해당 부버전 중 가장 최신의 패치 버전을 가져와야 하는데, 이부분은 아직 해결 안됨
+    - >= 0.7.6이면 0.7 버전중에 가장 높은 0.7.6을 설치하는게 맞는지, 0.8버전을 설치해야 하는지 모르겠음
 
 </aside>
