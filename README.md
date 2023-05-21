@@ -143,5 +143,17 @@ pragma solidity [version];
     [] 마지막 패치 버전(ex. 0.7.6)일때는 부버전에 +1을 해줘야함
     [] 나머지 경우에는 해당 부버전 중 가장 최신의 패치 버전을 가져와야 하는데, 이부분은 아직 해결 안됨
     - >= 0.7.6이면 0.7 버전중에 가장 높은 0.7.6을 설치하는게 맞는지, 0.8버전을 설치해야 하는지 모르겠음
+    - remix로 아래 코드 돌려보니 자동으로 0.4버전 중에 가장 높은 0.4.26 버전 고름
+    ```solidity
+        pragma solidity >0.4.24;
+
+        contract Test {
+        constructor() public { b = 0x12345678901234567890123456789012; }
+        event Event(uint indexed a, bytes32 b);
+        event Event2(uint indexed a, bytes32 b);
+        function foo(uint a) public { emit Event(a, b); }
+        bytes32 b;
+        }
+    ```
 
 </aside>
