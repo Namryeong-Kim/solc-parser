@@ -121,7 +121,8 @@ pragma solidity [version];
 ## 개선 및 해결해야할 것
 
 <aside>
-💡 List\
+💡 List
+
     1. 예외 발생시 페이지 로딩을 1초 기다렸다가 수행함 → output 출력까지 시간이 좀 걸림
     → selenium 무거워서 request 이용하는 형태로 변경
 
