@@ -26,7 +26,9 @@ pragma solidity [version];
 
     `--info`: input 파일의 버전, 버전에 사용된 기호 확인 가능. range일 경우 모든 기호, 버전 정보 출력
 
-    `--type`: sign, version을 value에 입력할 수 있음. - sign, version을 각각 확인할 수 있으며, range일 경우 쓰여진 버전 중 가장 높은 버전과 해당 버전이 갖는 기호를 반환함
+    `--type`: sign, version을 value에 입력할 수 있음.
+
+        - sign, version을 각각 확인할 수 있으며, range일 경우 쓰여진 버전 중 가장 높은 버전과 해당 버전이 갖는 기호를 반환함
 
 - `get_version_list.py` :
 
