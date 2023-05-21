@@ -146,7 +146,7 @@ pragma solidity [version];
     - remix로 아래 코드 돌려보니 자동으로 0.4버전 중에 가장 높은 0.4.26 버전 고름
 
 </aside>
-```solidity
+``` solidity
     
     pragma solidity >0.4.24;
 
