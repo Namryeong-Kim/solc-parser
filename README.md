@@ -22,8 +22,10 @@ pragma solidity [version];
     ```shell
     python3 parse_solc_version.py [file_path] [option] [option_value]
     ```
-  - option
+  - option :
+
     `--info`: input 파일의 버전, 버전에 사용된 기호 확인 가능. range일 경우 모든 기호, 버전 정보 출력
+
     `--type`: sign, version을 value에 입력할 수 있음. - sign, version을 각각 확인할 수 있으며, range일 경우 쓰여진 버전 중 가장 높은 버전과 해당 버전이 갖는 기호를 반환함
 
 - `get_version_list.py` :
@@ -47,8 +49,10 @@ pragma solidity [version];
 - `search_less_or_greater_case.py` :
 
   - \> , < 기호가 있다면 해당 버전의 부버전 중 가장 가까운 패치 버전을 선택함
-    [] 마지막 패치 버전(ex. 0.7.6)일때는 부버전에 +1을 해줘야함
-    [] 나머지 경우에는 해당 부버전 중 가장 최신의 패치 버전을 가져와야 하는데, 이부분은 아직 해결 안됨
+
+    - [] 마지막 패치 버전(ex. 0.7.6)일때는 부버전에 +1을 해줘야함
+
+    - [] 나머지 경우에는 해당 부버전 중 가장 최신의 패치 버전을 가져와야 하는데, 이부분은 아직 해결 안됨
 
 - `solc-parser.sh`
   - 버전 리스트 update 및 기호 조건에 따른 python 파일 호출함
@@ -59,7 +63,7 @@ pragma solidity [version];
 - 최신 버전 사용
 
 <aside>
-💡 **경우의 수**
+💡 경우의 수
 
 - [x] 0.x
 - [x] 0.x.x
