@@ -6,6 +6,54 @@
 pragma solidity [version];
 ```
 
+## 사용법
+
+```solidity
+./solc-parser.sh [file_path]
+```
+
+## 각 파일에 대한 설명
+
+- `parse_solc_version.py` :
+
+  - 사용자가 input으로 넣어준 파일에 대해 버전 파싱
+  - range 형태로 입력한 경우(ex. >=0.5.0 <=0.8.9) 해당 범위 내에서 가장 최신 버전을 설치할 수 있도록 max 값 추출함
+  - 단독 실행 시 사용 형태
+    ```solidity
+    python3 parse_solc_version.py [file_path] [option] [option_value]
+    ```
+  - option
+    `--info`: input 파일의 버전, 버전에 사용된 기호 확인 가능. range일 경우 모든 기호, 버전 정보 출력
+    `--type`: sign, version을 value에 입력할 수 있음. - sign, version을 각각 확인할 수 있으며, range일 경우 쓰여진 버전 중 가장 높은 버전과 해당 버전이 갖는 기호를 반환함
+
+- `get_version_list.py` :
+
+  - ethereum/solidity의 release 페이지에서 update된 버전 정보를 크롤링하여 가져옴
+  - solc_list.txt에 버전만 추출하여 저장함
+  - 단독 실행 시 사용 형태
+    ```solidity
+    python3 get_version_list.py
+    ```
+
+- `search_highest_version.py` :
+
+  - ^, ~, >= 기호가 있다면 해당 버전의 부버전 중 가장 최신의 패치 버전을 가져옴
+  - 예) ^0.8.9 라면, 0.8.20 버전 가져옴. ~0.7이라면 0.7.6
+  - 단독 실행 시 사용 형태
+    ```solidity
+    python3 search_highest_version.py [target_version]
+    ```
+
+- `search_less_or_greater_case.py` :
+
+  - > , < 기호가 있다면 해당 버전의 부버전 중 가장 가까운 패치 버전을 선택함
+    > [] 마지막 패치 버전(ex. 0.7.6)일때는 부버전에 +1을 해줘야함
+    > [] 나머지 경우에는 해당 부버전 중 가장 최신의 패치 버전을 가져와야 하는데, 이부분은 아직 해결 안됨
+
+- `solc-parser.sh`
+  - 버전 리스트 update 및 기호 조건에 따른 python 파일 호출함
+  - 선택해야 하는 버전에 대해 `solc-select install`과 `use` 명령을 수행함
+
 ## 고려해야할 사항
 
 - 최신 버전 사용
@@ -59,11 +107,8 @@ pragma solidity [version];
    - [x] ≤
    - [x] 숫자만 기입
 3. 입력한 버전의 패치버전에서 -1
-
    - [x] <
-
-   → 0.8 이런식으로 부버전만 줬을때는 부버전 -1 해줘야 됨
-
+         → 0.8 이런식으로 부버전만 줬을때는 부버전 -1 해줘야 됨
 4. 입력한 버전의 패치버전에서 +1
    - [x] >
 5. range로 들어온 경우
@@ -77,8 +122,13 @@ pragma solidity [version];
 
 <aside>
 💡 1. 예외 발생시 페이지 로딩을 1초 기다렸다가 수행함 → output 출력까지 시간이 좀 걸림
+    → selenium 무거워서 request 이용하는 형태로 변경
 
-→ selenium 너무 무거워서 request 이용하는 형태로 변경
+    2. 현재는 실행할 때마다 전체 리스트를 크롤링하는 방식 → 따로 파일에 저장해두고 새로운 버전 릴리즈가 나올때 새로운 버전만 추가하는 방식으로 변경해야할 것 같음
+    - 내림차순으로 정렬해서 for문으로 저장된 파일의 처음과 릴리즈 크롤링한 값이 같다면 새로운 버전이 나온 것이 아니므로 break/return하면 되지 않을까?
+    - [x] 내림차순 정렬 완료
+    - [x] 파일에 저장하도록 변경
 
-1. 현재는 실행할 때마다 전체 리스트를 크롤링하는 방식 → 따로 파일에 저장해두고 새로운 버전 릴리즈가 나올때 새로운 버전만 추가하는 방식으로 변경해야할 것 같음 - 내림차순으로 정렬해서 for문으로 저장된 파일의 처음과 릴리즈 크롤링한 값이 같다면 새로운 버전이 나온 것이 아니므로 break/return하면 되지 않을까? - [x] 내림차순 정렬 완료 - [x] 파일에 저장하도록 변경
+    3. 와일드카드(*) 경우의 수 처리하기
+
 </aside>
