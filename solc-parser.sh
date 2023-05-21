@@ -17,8 +17,8 @@ function install_solc(){
 }
 
 # 솔리디티 버전 추출
-target_version=$(cat "$solidity_file" | grep -oE "pragma solidity ((\^|=|~|>=|<=|>|<)?)([0-9]+\.[0-9]+(\.[0-9]+)?|\*)" | sed -E "s/pragma solidity ((\^|==|~|>=|<=|>|<)?)([0-9]+\.[0-9]+(\.[0-9]+)?|\*).*/\3/g")
-target_sign=$(cat "$solidity_file" | grep -oE "pragma solidity ((\^|=|~|>=|<=|>|<)?)([0-9]+\.[0-9]+(\.[0-9]+)?|\*)" | sed -E "s/pragma solidity ((\^|==|~|>=|<=|>|<)?)([0-9]+\.[0-9]+(\.[0-9]+)?|\*).*/\2/g")
+target_version=$(python3 parse_solc_version.py "$solidity_file" --type version)
+target_sign=$(python3 parse_solc_version.py "$solidity_file" --type sign)
 
 if [[ -n "$target_version" && ( -z "$target_sign" || "$target_sign" == "=" || "$target_sign" == "<=" ) ]]; then
     print_version_info
