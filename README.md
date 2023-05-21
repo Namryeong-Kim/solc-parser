@@ -146,18 +146,21 @@ pragma solidity [version];
     - remix로 아래 코드 돌려보니 자동으로 0.4버전 중에 가장 높은 0.4.26 버전 고름
 
 </aside>
-``` solidity
-    
-    pragma solidity >0.4.24;
 
-    contract Test {
-    constructor() public { b = 0x12345678901234567890123456789012; }
-    event Event(uint indexed a, bytes32 b);
-    event Event2(uint indexed a, bytes32 b);
-    function foo(uint a) public { emit Event(a, b); }
-    bytes32 b;
+```solidity
+pragma solidity >0.4.24;
+
+contract Test {
+    constructor() public {
+        b = 0x12345678901234567890123456789012;
     }
 
-```
+    event Event(uint indexed a, bytes32 b);
+    event Event2(uint indexed a, bytes32 b);
+    function foo(uint a) public {
+        emit Event(a, b);
+    }
 
+    bytes32 b;
+}
 ```
