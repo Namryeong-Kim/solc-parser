@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >0.8.19;
+pragma solidity ≥0.4.5;
 
 contract EtherStore {
     mapping(address => uint) public balances;
