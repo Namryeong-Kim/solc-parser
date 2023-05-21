@@ -35,4 +35,3 @@ elif [[ -n "$target_version" && ( "$target_sign" == "<" || "$target_sign" == ">"
 else
   echo "Solidity version not found."
 fi
-

@@ -1,10 +1,12 @@
 import sys
 from packaging import version
 
+
 def get_solc_version_list():
     with open('solc_list.txt', 'r') as f:
         version_list = f.read().splitlines()
     return version_list
+
 
 def get_lower_version(version_list, target_version):
     matching_versions = []
@@ -18,6 +20,7 @@ def get_lower_version(version_list, target_version):
     latest_version = max(matching_versions, key=version.parse)
     return latest_version
 
+
 def get_higher_version(version_list, target_version):
     matching_versions = []
     for v in version_list:
@@ -30,9 +33,10 @@ def get_higher_version(version_list, target_version):
     latest_version = min(matching_versions, key=version.parse)
     return latest_version
 
+
 def main():
     if len(sys.argv) != 3:
-        print(f"Usage: python {sys.argv[0]} [target_version] [target_sign]")
+        print(f"Usage: python3 {sys.argv[0]} [target_version] [target_sign]")
         sys.exit(1)
     target_version = sys.argv[1]
     target_sign = sys.argv[2]
@@ -46,7 +50,7 @@ def main():
         print(highest_version)
     else:
         print("incorrect target_sign")
-        
+
 
 if __name__ == '__main__':
     main()
